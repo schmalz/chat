@@ -3,6 +3,9 @@ defmodule ChatWeb.ChatChannel do
 
   @moduledoc """
   The chat application channel; handles incoming messages.
+
+  This is the simplest chat server that could work, it allows unfettered access to the lobby and simply broadcasts all
+  messages it receives.
   """
 
   @doc """
@@ -18,7 +21,7 @@ defmodule ChatWeb.ChatChannel do
   def join("chat:*", _payload, _socket), do: {:error, %{reason: "unauthorized"}}
 
   @doc """
-  Handle a message, currently by broadcasting it to all subscibers to the topic.
+  Handle a message, currently by broadcasting it to all subscribers to the topic.
   """
   def handle_in("msg" = event, payload, socket) do
     broadcast(socket, event, payload)
