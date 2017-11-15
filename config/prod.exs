@@ -24,6 +24,13 @@ config :chat, ChatWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :logger,
+  backends: [{LoggerFileBackend, :chat_log}]
+
+# configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :chat_log,
+  path: "/var/log/chat/system.log"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

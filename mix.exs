@@ -36,7 +36,9 @@ defmodule Chat.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:logger_file_backend, git: "https://github.com/onkel-dirtus/logger_file_backend"},
       {:distillery, "~> 1.5", runtime: false},
+      {:edeliver, "~> 1.4.4", runtime: false},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
