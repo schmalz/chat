@@ -2,7 +2,7 @@ APP="chat"
 
 BUILD_HOST="localhost"
 BUILD_USER="peter"
-BUILD_AT="/home/peter/dev/elixir/chat"
+BUILD_AT="/home/peter/builds/elixir/chat"
 
 PRODUCTION_HOSTS="fpsbackend.vm.rw"
 PRODUCTION_USER="update"
