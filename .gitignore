@@ -2,7 +2,6 @@
 /_build
 /db
 /deps
-/rel
 /.deliver/releases
 /*.ez
 
