@@ -14,6 +14,8 @@ defmodule Chat.Application do
     children = [
       # Start the endpoint when the application starts
       supervisor(ChatWeb.Endpoint, []),
+      # Start the chat presence module when the application starts.
+      supervisor(ChatWeb.ChatPresence, [])
       # Start your own worker by calling: Chat.Worker.start_link(arg1, arg2, arg3)
       # worker(Chat.Worker, [arg1, arg2, arg3]),
     ]

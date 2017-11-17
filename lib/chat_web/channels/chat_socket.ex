@@ -1,5 +1,6 @@
 defmodule ChatWeb.ChatSocket do
   use Phoenix.Socket
+  require Logger
 
   ## Channels
   channel "chat:*", ChatWeb.ChatChannel
@@ -19,8 +20,9 @@ defmodule ChatWeb.ChatSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(params, socket) do
+    Logger.debug("++ connect(#{inspect(params)}, #{inspect(socket)})")
+    {:ok, assign(socket, :user_id, params["user_id"])}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
