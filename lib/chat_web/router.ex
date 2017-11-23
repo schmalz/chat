@@ -5,7 +5,10 @@ defmodule ChatWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ChatWeb do
+  scope "/", ChatWeb do
     pipe_through :api
+
+    resources "/users", UserController, only: [:create, :show]
+    resources "/logins", LoginController, only: [:create, :show]
   end
 end

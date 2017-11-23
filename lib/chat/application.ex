@@ -5,6 +5,8 @@ defmodule Chat.Application do
   The chat application.
   """
 
+  @redis_uri Application.get_env(:chat, :redis_uri)
+
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
@@ -15,9 +17,10 @@ defmodule Chat.Application do
       # Start the endpoint when the application starts
       supervisor(ChatWeb.Endpoint, []),
       # Start the chat presence module when the application starts.
-      supervisor(ChatWeb.ChatPresence, [])
+      supervisor(ChatWeb.ChatPresence, []),
       # Start your own worker by calling: Chat.Worker.start_link(arg1, arg2, arg3)
-      # worker(Chat.Worker, [arg1, arg2, arg3]),
+      worker(Redix, [@redis_uri, [name: :redix]]),
+      worker(Chat.Users, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
