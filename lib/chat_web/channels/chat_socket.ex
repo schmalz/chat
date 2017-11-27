@@ -1,6 +1,5 @@
 defmodule ChatWeb.ChatSocket do
   use Phoenix.Socket
-  require Logger
 
   ## Channels
   channel "chat:*", ChatWeb.ChatChannel
@@ -21,7 +20,6 @@ defmodule ChatWeb.ChatSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(%{"token" => token} = params, socket) do
-    Logger.debug(fn() -> "++ connect(#{inspect(params)}, #{inspect(socket)})" end)
     case Phoenix.Token.verify(ChatWeb.Endpoint, "user token salt", token, max_age: 86_400) do
       {:ok, name} ->
         socket = assign(socket, :name, name)

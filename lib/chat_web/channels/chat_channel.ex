@@ -1,6 +1,5 @@
 defmodule ChatWeb.ChatChannel do
   use ChatWeb, :channel
-  require Logger
 
   @moduledoc """
   The chat application channel; handles incoming messages.
@@ -13,7 +12,6 @@ defmodule ChatWeb.ChatChannel do
   Handle a request to join a topic.
   """
   def join("chat:lobby", payload, socket) do
-    Logger.debug(fn() -> "++ join(#{inspect(payload)}, #{inspect(socket)})" end)
     if authorized?(payload) do
       send(self(), :after_join)
       {:ok, socket}
@@ -27,8 +25,6 @@ defmodule ChatWeb.ChatChannel do
   Handle a message, currently by broadcasting it to all subscribers to the topic.
   """
   def handle_in("msg" = event, payload, socket) do
-    Logger.debug(fn() -> "++ handle_in(#{inspect(event)}, #{inspect(payload)}, #{inspect(socket)})" end)
-    Logger.debug(fn() -> "socket.assigns.name #{inspect(socket.assigns.name)}" end)
     broadcast(socket, event, Map.put(payload, "name", socket.assigns.name))
     {:noreply, socket}
   end
@@ -37,9 +33,7 @@ defmodule ChatWeb.ChatChannel do
   Handle an information message.
   """
   def handle_info(:after_join, socket) do
-    Logger.debug(fn() -> "++ handle_info(:after_join, #{inspect(socket)})" end)
     push(socket, "presence_state", ChatWeb.ChatPresence.list(socket))
-    Logger.debug(fn() -> "socket.assigns.name #{inspect(socket.assigns.name)}" end)
     {:ok, _} = ChatWeb.ChatPresence.track(socket, socket.assigns.name, %{
       online_at: inspect(System.system_time(:seconds))
     })
